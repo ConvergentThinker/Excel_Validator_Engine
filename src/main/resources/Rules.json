@@ -1,0 +1,81 @@
+[
+  {
+    "name": "rule1",
+    "description": "header A is equal to [ header B (Math Operands) header C ]",
+    "elements": [
+      {
+        "targetHead": "CurrentAge",
+        "operand1": "Pre-Age",
+        "operand2": "Age of Sister",
+        "operator": "+",
+        "row": "ALL/FromTo",
+        "sheet": "Form1"
+      },
+      {
+        "targetHead": "Age",
+        "operand1": "parentAge",
+        "operand2": "Age of Sister",
+        "operator": "-",
+        "row": "ALL/FromTo",
+        "sheet": "Form1"
+      }
+    ]
+  },
+  {
+    "name": "rule2",
+    "description": "Header A must be like [format type]",
+    "elements": [
+      {
+        "targetHead": "DOB",
+        "format": "DD-MM-YYY",
+        "row": "ALL/FromTo",
+        "sheet": "Form1"
+      },
+      {
+        "targetHead": "Age",
+        "format": "Number",
+        "row": "ALL/FromTo",
+        "sheet": "Form1"
+      }
+    ]
+  },
+  {
+    "name": "rule3",
+    "description": "Column 'A' will hold any one of the value out of predefined accepted values.",
+    "elements": [
+      {},
+      {}
+    ]
+  },
+  {
+    "name": "rule4",
+    "description": " Define Mandatory Columns.",
+    "elements": [
+      {
+
+      },
+      {}
+    ]
+  }
+]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
