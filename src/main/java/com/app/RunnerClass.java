@@ -1,13 +1,10 @@
-package com.income;
+package com.app;
 
-import com.income.datavalidator.*;
-import com.income.engine.ReaderEngine;
+import com.app.datavalidator.*;
+import com.app.engine.ReaderEngine;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.*;
 
 public class RunnerClass {
@@ -15,15 +12,31 @@ public class RunnerClass {
 
     public static void main(String[] args) throws IOException, InterruptedException {
 
-      /*  String[] words = args[0].split("=");
-
-        System.out.println("---------> "+ words[0]);
-        System.out.println("---------> "+ words[1]);
-*/
-
         String ruleXlsxPath = "";
         String testXlsxPath = "";
-        String rulesList = "R4,R2";
+        String rulesList = "";
+
+        // creates an object of Scanner
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Enter Rule Key (Available now only 'R4': ");
+        // takes input from the keyboard
+        rulesList = input.nextLine();
+
+        System.out.println("Enter Rule Excel path :");
+        ruleXlsxPath = input.nextLine();
+
+        System.out.println("Enter Input excel file path : ");
+        testXlsxPath = input.nextLine();
+
+        // closes the scanner
+        input.close();
+
+
+       // System.out.println("rulesList :: " + rulesList);
+       // System.out.println("ruleXlsxPath :: "+ ruleXlsxPath);
+       // System.out.println( "testXlsxPath :: "+ testXlsxPath);
+
 
         final RunnerClass runner = new RunnerClass();
         final ReaderEngine readerEngine = new ReaderEngine();
@@ -31,15 +44,19 @@ public class RunnerClass {
         String[] rulesArr = rulesList.split(",");
         int noOfThreads = rulesArr.length;
 
+        System.out.println("noOfThreads : "+ noOfThreads);
+
         ExecutorService executorService = Executors.newFixedThreadPool(noOfThreads);
         Set<Callable<String>> callables = new HashSet<>();
 
         for (int i = 0; i < noOfThreads; i++) {
             int finalI = i;
+
+            String finalRuleXlsxPath = ruleXlsxPath;
             callables.add(new Callable<String>() {
                 public String call() {
-                    System.out.println(" Thread name: " + Thread.currentThread().getName());
-                    return runner.executeRule(rulesArr[finalI], inputExcelData);
+                    //System.out.println(" Thread name: " + Thread.currentThread().getName());
+                    return runner.executeRule(rulesArr[finalI], inputExcelData, finalRuleXlsxPath);
                 }
             });
         }
@@ -62,7 +79,7 @@ public class RunnerClass {
 
                     for (String arr : infoArr) {
                         String[] item = arr.split(",");
-                        System.out.println("For " + item[0] + ",in sheet " + item[1] + " and Row No:" + item[2] + " in column header " + item[3] + " >>> INFO: " + item[4]);
+                        System.out.println("For " + item[0] + ",in sheet " + item[1] + " and Row No:" + item[2] + " in column " + item[3] + " >>> INFO: " + item[4]);
                     }
                     System.out.println("===================================");
                 }
@@ -76,7 +93,7 @@ public class RunnerClass {
     }
 
 
-    public String executeRule(String value, Map<String, Map<String, Map<Integer, String>>> inputExcelData) {
+    public String executeRule(String value, Map<String, Map<String, Map<Integer, String>>> inputExcelData,String ruleXlsxPath) {
 
         String getErrorListSTR = "";
 
@@ -99,7 +116,7 @@ public class RunnerClass {
                 break;
             case "R4":
                 Rule4ValidatorEngine rule4ValidatorEngine = new Rule4ValidatorEngine();
-                rule4ValidatorEngine.validateRule4(inputExcelData);
+                rule4ValidatorEngine.validateRule4(inputExcelData,ruleXlsxPath);
                 getErrorListSTR = rule4ValidatorEngine.getErrorsList();
                 break;
 

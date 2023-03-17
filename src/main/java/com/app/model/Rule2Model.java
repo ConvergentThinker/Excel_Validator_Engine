@@ -1,4 +1,4 @@
-package com.income.model;
+package com.app.model;
 
 import com.poiji.annotation.ExcelCellName;
 import com.poiji.annotation.ExcelSheet;

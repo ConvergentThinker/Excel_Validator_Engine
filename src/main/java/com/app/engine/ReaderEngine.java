@@ -1,4 +1,4 @@
-package com.income.engine;
+package com.app.engine;
 
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -9,9 +9,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-// auther:  Sakthivel.I
-
-// This class is to read input excel and store it in Map
 
 public class ReaderEngine {
 
@@ -130,8 +127,8 @@ public class ReaderEngine {
             // XSSFWorkbook  = XML SpreadSheet Format
             // is for Excel 2007 or above
 
-            String path = "/Users/innovative/Documents/Excel Validator/cloned/Excel_Validator_Engine/src/main/resources/data/TestDataSheet.xlsx";
-            FileInputStream fis = new FileInputStream(path);
+            //String path = "/Users/innovative/Documents/Excel Validator/cloned/Excel_Validator_Engine/src/main/resources/data/TestDataSheet.xlsx";
+            FileInputStream fis = new FileInputStream(inputFile);
             Workbook workbook = new XSSFWorkbook(fis);
 
             Integer sheets = workbook.getNumberOfSheets();
@@ -142,7 +139,7 @@ public class ReaderEngine {
                 Map<String, Map<Integer, String>> excelFileMap = new HashMap<String, Map<Integer, String>>();
 
                 Sheet sheet = workbook.getSheetAt(s);
-                System.out.println("sheet >>> "+ sheet.getSheetName());
+                //System.out.println("sheet >>> "+ sheet.getSheetName());
 
                 // start sheet
                 int lastRow = sheet.getLastRowNum();
